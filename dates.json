@@ -1,0 +1,43 @@
+[
+    {
+      "date": "2025-02-16",
+      "topic": "Orientation + Array",
+      "speaker": "Pritam Paul"
+    },
+    {
+      "date": "2025-02-17",
+      "topic": "Strings",
+      "speaker": "Tunir Adhikary"
+    },
+    {
+      "date": "2025-02-22",
+      "topic": "Searching + Problem Practice",
+      "speaker": "Soham Mondal"
+    },
+    {
+      "date": "2025-02-23",
+      "topic": "Basic Recursion",
+      "speaker": "Pritam Paul"
+    },
+    {
+      "date": "2025-03-16",
+      "topic": "Stack",
+      "speaker": "Riya Gupta"
+    },
+    {
+      "date": "2025-03-17",
+      "topic": "Queue",
+      "speaker": "Riya Gupta"
+    },
+    {
+      "date": "2025-03-22",
+      "topic": "Linked List - Part 1",
+      "speaker": "Sohoomlal Bannerjee"
+    },
+    {
+      "date": "2025-03-23",
+      "topic": "Linked List - Part 2",
+      "speaker": "Sohoomlal Bannerjee"
+    }
+  ]
+  
