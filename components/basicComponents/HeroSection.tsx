@@ -1,6 +1,7 @@
 import React from 'react';
 import Countdown from './CountDown';
 import ParticleText from '../miniCompo/ParticleTest';
+import Login from './Login';
 
 const HeroSection = () => {
   return (
@@ -28,11 +29,11 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="mt-8">
-            <a href="https://lu.ma/rm1ln6ks" target='_blank'>
+            <a href="" target='_blank'>
               <button 
                 style={{ background: '#273239' }}
                 className="px-8 py-3 text-lg font-semibold text-white rounded-lg transform transition-all duration-300 hover:scale-105 hover:from-emerald-500 hover:to-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 shadow-lg hover:shadow-xl backdrop-blur-sm">
-                Register Now
+                <Login/>
               </button>
             </a>
           </div>

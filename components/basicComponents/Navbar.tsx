@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
             <div className="relative group z-10">
                 <a href="/">
                     <span className="font-extrabold text-3xl bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 hover:scale-105 transform transition-all duration-500 cursor-pointer">
-                        DSA <span style={{ color: '#1776e6' }}>BOOTCAMP</span>
+                         <span style={{ color: '#1776e6' }}></span>
                     </span>
                     <div className="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:w-full transition-all duration-500 ease-in-out"></div>
                 </a>
