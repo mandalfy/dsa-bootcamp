@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-
-import Navbar from '../components/basicComponents/Navbar'
+import NavbarWrapper from '../components/miniCompo/NavWrapper'
 
 export const metadata: Metadata = {
   title: 'GEEKSFORGEEKS',
@@ -23,7 +22,7 @@ export default function RootLayout({
         <link rel="icon" href="/favIcon.ico" type="image/x-icon" />
       </head>
       <body>
-        <Navbar />
+        <NavbarWrapper /> {/* Conditionally renders Navbar */}
         {children}
       </body>
     </html>
