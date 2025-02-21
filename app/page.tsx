@@ -1,3 +1,7 @@
-"use client"
+"use client";
 
-export { default } from '../project-dsathon'
+import Login from "./login/page";
+
+export default function Home() {
+  return <Login />;
+}

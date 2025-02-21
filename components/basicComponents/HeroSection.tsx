@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import Countdown from './CountDown';
 import ParticleText from '../miniCompo/ParticleTest';
-import Login from './Login';
-import Register from './Register';
+import Link from 'next/link';
 
 const HeroSection: React.FC = () => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   return (
     <section className="relative flex items-center justify-center h-screen overflow-hidden">
@@ -32,30 +29,17 @@ const HeroSection: React.FC = () => {
               <Countdown />
             </div>
           </div>
-          <div className="mt-8 flex justify-center space-x-4">
-            <button
-              onClick={() => setIsLoginOpen(true)}
-              style={{ background: '#273239' }}
-              className="px-8 py-3 text-lg font-semibold text-white rounded-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 shadow-lg hover:shadow-xl backdrop-blur-sm">
-              Login
-            </button>
-            <button
-              onClick={() => setIsRegisterOpen(true)}
-              style={{ background: '#273239' }}
-              className="px-8 py-3 text-lg font-semibold text-white rounded-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 shadow-lg hover:shadow-xl backdrop-blur-sm">
-              Register
-            </button>
-          </div>
+          {/* <div className="mt-8 flex justify-center space-x-4">
+            <Link href="register">
+              <button
+                style={{ background: '#273239' }}
+                className="px-8 py-3 text-lg font-semibold text-white rounded-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 shadow-lg hover:shadow-xl backdrop-blur-sm">
+                Register
+              </button>
+            </Link>
+          </div> */}
         </div>
       </div>
-
-      {/* Login Form - Conditionally Rendered */}
-      {isLoginOpen && (
-        <Login />
-      )}
-      {isRegisterOpen && (
-        <Register />
-      )}
 
       {/* Tailwind animation keyframes */}
       <style jsx>{`

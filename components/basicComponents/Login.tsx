@@ -1,71 +1,88 @@
-import React from "react";
+"use client";
 
-function Login() {
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const res = await signIn("credentials", { email, password, redirect: false });
+
+    if (res?.error) {
+      alert(res.error);
+    } else {
+      router.push("/home");
+    }
+  };
+
   return (
-    <div
-      id="login-form-container"
-      className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 transition-opacity duration-300 ease-in-out"
-    >
-      <form className="bg-white p-6 md:p-8 rounded-xl w-11/12 max-w-sm shadow-lg transform scale-95 transition-transform duration-300 ease-in-out">
-        <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
-        
-        {/* Username Input */}
-        <div className="mb-4 relative">
-          <i className="bx bxs-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
-          <input 
-            type="text" 
-            placeholder="Username" 
-            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-700 via-blue-500 to-blue-700 p-6">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h2 className="text-3xl font-semibold text-center text-green-700">Welcome Back</h2>
+        <p className="text-gray-600 text-center mt-1">Login to your account</p>
+
+        <form onSubmit={handleLogin} className="space-y-4 mt-6">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+            required
           />
-        </div>
-
-        {/* Password Input */}
-        <div className="mb-4 relative">
-          <i className="bx bxs-lock-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
-          <input 
-            type="password" 
-            placeholder="Password" 
-            className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+            required
           />
+          <button
+            type="submit"
+            className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-600 transition-all duration-300"
+          >
+            Login
+          </button>
+        </form>
+
+        <div className="flex items-center my-6">
+          <hr className="flex-grow border-gray-300" />
+          <span className="px-3 text-gray-500">OR</span>
+          <hr className="flex-grow border-gray-300" />
         </div>
 
-        {/* Remember Me & Forgot Password */}
-        <div className="flex justify-between items-center text-sm mb-4">
-          <label className="flex items-center">
-            <input type="checkbox" className="mr-2" /> Remember me
-          </label>
-          <a href="#" className="text-blue-500 hover:underline">Forgot Password?</a>
-        </div>
-
-        {/* Login Button */}
-        <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-          Login
-        </button>
-
-        {/* Alternative Login Options */}
-        <div className="text-center my-4 text-gray-500">Or login with</div>
-
-        {/* Google Login */}
-        <button className="w-full flex items-center justify-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition mb-2">
-          <i className="bx bxl-google mr-2 text-lg"></i> Sign in with Google
-        </button>
-
-        {/* LeetCode Login */}
-        <button className="w-full flex items-center justify-center bg-yellow-600 text-white py-2 rounded-lg hover:bg-yellow-700 transition">
-          <i className="bx bx-code mr-2 text-lg"></i> Sign in with LeetCode
-        </button>
-
-        {/* Close Button */}
-        <button 
-          type="button" 
-          id="close-login-form" 
-          className="absolute top-3 right-3 text-gray-600 hover:text-red-500 transition text-2xl"
+        <button
+          onClick={() => signIn("google")}
+          className="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition-all duration-300"
         >
-          &times;
+          Login with Google
         </button>
-      </form>
+
+        <button
+          onClick={() => signIn("github")}
+          className="w-full bg-gray-800 text-white py-3 rounded-lg mt-2 hover:bg-gray-700 transition-all duration-300"
+        >
+          Login with GitHub
+        </button>
+
+        <p className="text-center text-gray-600 mt-6">
+          Don't have an account?{" "}
+          <span
+            onClick={() => router.push("/register")}
+            className="text-blue-600 cursor-pointer hover:underline"
+          >
+            Register here
+          </span>
+        </p>
+      </div>
     </div>
   );
-}
+};
 
 export default Login;
