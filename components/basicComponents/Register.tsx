@@ -26,7 +26,7 @@ const Register: React.FC = () => {
       });
 
       if (response.ok) {
-        router.push("/");
+        router.push("/home");
       } else {
         console.error("Failed to register:", await response.text());
       }
