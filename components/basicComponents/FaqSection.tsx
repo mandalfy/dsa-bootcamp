@@ -43,10 +43,10 @@ export default function FAQSection() {
     <section className="py-16 px-4 min-h-screen bg-gradient-to-b from-green-50 to-white">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent transform transition-all duration-300 hover:scale-105">
-            Frequently Asked Questions
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent transform transition-all duration-300 hover:scale-105">
+          FREQUENTLY ASKED QUESTIONS
           </h2>
-          <p className="text-lg md:text-xl text-gray-600">
+          <p className="text-lg md:text-xl bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
             Find answers to common questions about the DSA Bootcamp
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function FAQSection() {
                 onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
                 className="w-full px-6 py-4 flex items-center justify-between text-left"
               >
-                <h3 className="text-lg md:text-xl font-semibold text-green-700">
+                <h3 className="text-lg md:text-xl font-semibold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                   {faq.question}
                 </h3>
                 {expandedIndex === index ? (
@@ -75,7 +75,7 @@ export default function FAQSection() {
                   expandedIndex === index ? 'max-h-48 pb-4' : 'max-h-0'
                 }`}
               >
-                <p className="text-gray-600">
+                <p className="text-md bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                   {faq.answer}
                 </p>
               </div>
