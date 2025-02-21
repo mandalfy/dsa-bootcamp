@@ -44,7 +44,7 @@ const HeroSection = () => {
         </div>
 
         {/* Register Button - Now with Blue-Green Gradient */}
-        <div className="mt-4 z-30">
+        {/* <div className="mt-4 z-30">
           <a
             href="https://lu.ma/rm1ln6ks"
             target="_blank"
@@ -61,7 +61,7 @@ const HeroSection = () => {
               Register Now
             </button>
           </a>
-        </div>
+        </div> */}
       </div>
 
       {/* Tailwind Animation Keyframes */}
