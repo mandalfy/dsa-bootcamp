@@ -77,12 +77,12 @@ const Login = () => {
           Login with Google
         </button>
 
-        <button
+        {/* <button
           onClick={() => signIn("github")}
           className="w-full bg-gray-800 text-white py-3 rounded-lg mt-2 hover:bg-gray-700 transition-all duration-300"
         >
           Login with GitHub
-        </button>
+        </button> */}
 
         <p className="text-center text-gray-600 mt-6">
           Don't have an account?{" "}
