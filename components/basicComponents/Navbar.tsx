@@ -1,5 +1,4 @@
 "use client";
-// components/Navbar.tsx
 
 import { useState } from "react";
 import Image from "next/image";
@@ -35,17 +34,18 @@ const Navbar: React.FC = () => {
   return (
     <nav className="fixed top-0 w-full bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 backdrop-blur-sm border-b border-emerald-200 shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-        
         {/* Main Logo (Shifted to extreme left) */}
         <div className="flex items-center">
-          <Image
-            src="/assets/logo.png"
-            alt="DSA Bootcamp Logo"
-            width={56}
-            height={56}
-            priority
-            className="h-14 w-auto"
-          />
+          <Link href="/home">
+            <Image
+              src="/assets/logo.png"
+              alt="DSA Bootcamp Logo"
+              width={56}
+              height={56}
+              priority
+              className="h-14 w-auto"
+            />
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
