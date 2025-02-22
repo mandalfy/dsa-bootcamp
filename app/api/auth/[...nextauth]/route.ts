@@ -39,6 +39,13 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      authorization: {
+        params: {
+          prompt: "select_account",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
     }),
 
     GitHubProvider({
@@ -47,6 +54,13 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ user, account, profile }) {
+      return true; // Return false to prevent sign in
+    },
+    async redirect({ url, baseUrl }) {
+      // Redirect to home page after sign in
+      return `${baseUrl}/home`;
+    },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.sub!;
@@ -63,15 +77,18 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-  },  
+  },
   pages: {
     signIn: "/login", // Custom login page
+    signOut: "/login", // Redirect to login page after sign out
+    error: "/login", // Error code passed in query string as ?error=
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth({
   ...authOptions,
-  debug: true,  // 🔍 Enable debugging
+  debug: process.env.NODE_ENV === "development", // Enable debugging only in development
 });
-export { handler as GET, handler as POST };
 
+export { handler as GET, handler as POST };

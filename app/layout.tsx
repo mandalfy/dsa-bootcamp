@@ -28,8 +28,9 @@ export default async function RootLayout({
         <link rel="icon" href="/favIcon.ico" type="image/x-icon" />
       </head>
       <body>
-        <NavbarWrapper />
-        <SessionProviderWrapper>{children}</SessionProviderWrapper>
+        <SessionProviderWrapper>
+          <NavbarWrapper />
+          {children}</SessionProviderWrapper>
       </body>
     </html>
   )
