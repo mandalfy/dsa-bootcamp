@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
-import { dbConnect } from '../../../lib/mongo';
-import User from '../../../models/user-model';  // Adjust the path as needed
+import { dbConnect } from "../../lib/mongo";
+import User from "../../models/user-model";
+// Adjust the path as needed
+export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   try {
