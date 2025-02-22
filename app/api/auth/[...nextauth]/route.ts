@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("⚠️ Email and password are required");
         }
 
-        await dbConnect(); // Ensure DB is connected
+        await dbConnect();
         const user = await User.findOne({ email: credentials.email });
 
         if (!user) {
@@ -32,7 +32,11 @@ export const authOptions: NextAuthOptions = {
           throw new Error("⚠️ Invalid email or password");
         }
 
-        return { id: user._id, email: user.email, name: user.name };
+        return {
+          id: user._id.toString(),
+          email: user.email,
+          name: user.name
+        };
       },
     }),
 
@@ -55,21 +59,47 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-      return true; // Return false to prevent sign in
+      try {
+        await dbConnect();
+
+        if (account?.provider === "google" || account?.provider === "github") {
+          // Check if user exists
+          const existingUser = await User.findOne({ email: user.email });
+          
+          if (!existingUser) {
+            // Create new user for OAuth
+            await User.create({
+              name: user.name,
+              email: user.email,
+              provider: account.provider,
+              // Add a random password for OAuth users
+              password: await bcrypt.hash(Math.random().toString(36), 10)
+            });
+          }
+        }
+        return true;
+      } catch (error) {
+        console.error("Sign in error:", error);
+        return false;
+      }
     },
+
     async redirect({ url, baseUrl }) {
-      // Redirect to home page after sign in
-      return `${baseUrl}/home`;
+      return "/home"; // Always redirect to /home after login
     },
+
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.sub!;
-        session.user.email = token.email!;
-        session.user.name = token.name!;
+        
+        // Ensure these values are set from token
+        if (token.email) session.user.email = token.email;
+        if (token.name) session.user.name = token.name;
       }
       return session;
     },
-    async jwt({ token, user }) {
+
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -79,16 +109,16 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "/login", // Custom login page
-    signOut: "/login", // Redirect to login page after sign out
-    error: "/login", // Error code passed in query string as ?error=
+    signIn: "/login",
+    signOut: "/login",
+    error: "/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth({
   ...authOptions,
-  debug: process.env.NODE_ENV === "development", // Enable debugging only in development
+  debug: process.env.NODE_ENV === "development",
 });
 
 export { handler as GET, handler as POST };
