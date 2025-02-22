@@ -3,10 +3,14 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+// import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import EyeIcon from "../miniCompo/EyeIcon";
+import EyeOffIcon from "../miniCompo/EyeOffIcon";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -35,14 +39,23 @@ const Login = () => {
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
             required
           />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
-            required
-          />
+          <div className="relative w-full">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700 pr-10"
+              required
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-3 flex items-center"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOffIcon/> : <EyeIcon />}
+            </button>
+          </div>
           <button
             type="submit"
             className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-600 transition-all duration-300"
