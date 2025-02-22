@@ -13,7 +13,7 @@ const timelineEvents = [
   { session: "SESSION 8", date: "23rd MAR, Monday", topic: "Linked List - Part 2", speaker: "Sohoomlal Bannerjee" },
 ];
 
-export default function ModernTimeline() {
+export default function CurvedTimeline() {
   return (
     <div className="min-h-screen py-20 px-6">
       <div className="max-w-7xl mx-auto mb-20 text-center">

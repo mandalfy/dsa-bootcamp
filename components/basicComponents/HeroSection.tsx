@@ -1,14 +1,32 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import dateData from "../../dates.json";
 
 const ParticleText = dynamic(() => import("../miniCompo/ParticleTest"), { ssr: false });
 const Countdown = dynamic(() => import("./CountDown"), { ssr: false });
 
 const HeroSection = () => {
-  const [isClient, setIsClient] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    const checkSessionStatus = () => {
+      const now = new Date();
+      
+      for (const session of dateData) {
+        const sessionStart = new Date(`${session.date}T20:00:00`);
+        const sessionEnd = new Date(sessionStart.getTime() + 2 * 60 * 60 * 1000);
+
+        if (now >= sessionStart && now <= sessionEnd) {
+          setIsActive(true);
+          return;
+        }
+      }
+      setIsActive(false);
+    };
+    
+    checkSessionStatus();
+    const interval = setInterval(checkSessionStatus, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -43,22 +61,22 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Register Button - Now with Blue-Green Gradient */}
+        {/* Register Button - Active only during session */}
         <div className="mt-4 z-30">
           <a
-            href="https://lu.ma/rm1ln6ks"
+            href="https://meet.google.com/jxc-vhcy-iaa"
             target="_blank"
             rel="noopener noreferrer"
           >
             <button
-              className="px-6 py-3 sm:px-7 sm:py-4 md:px-8 md:py-5 text-lg sm:text-xl md:text-2xl 
-                         font-bold text-white bg-gradient-to-r from-blue-500 to-green-500 rounded-lg 
+              className={`mt-3 px-6 py-3 sm:px-7 sm:py-4 md:px-8 md:py-5 text-lg sm:text-xl md:text-2xl 
+                         font-bold text-white bg-gray-600 rounded-lg 
                          transition-all duration-300 transform hover:scale-110 
-                         hover:bg-gradient-to-r hover:from-blue-600 hover:to-green-600 
                          focus:ring-4 focus:ring-blue-400 focus:ring-opacity-50 shadow-lg 
-                         hover:shadow-blue-400/50"
+                         hover:shadow-blue-400/50 ${isActive ? '' : 'opacity-50 cursor-not-allowed'}`}
+              disabled={!isActive}
             >
-              Register Now
+              Join Session
             </button>
           </a>
         </div>
