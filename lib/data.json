@@ -1,0 +1,16 @@
+{
+    "day1": [
+      "Understand basic syntax",
+      "Practice variables and data types",
+      "Solve a simple problem"
+    ],
+    "day2": [
+      "Learn about loops",
+      "Practice loop-based problems"
+    ],
+    "day3": [
+      "Introduction to recursion",
+      "Solve a recursion problem",
+      "Analyze time complexity"
+    ]
+  }

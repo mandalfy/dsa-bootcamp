@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, Code, BookOpen, Menu } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
 
 interface NavLink {
   href: string;
@@ -16,12 +15,6 @@ interface NavLink {
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [mounted, setMounted] = useState(false);
-  const { data: session, status } = useSession();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const navLinks: NavLink[] = [
     { href: "#timeline", icon: Clock, text: "Timeline", hoverColor: "pink" },
@@ -41,23 +34,22 @@ const Navbar: React.FC = () => {
   return (
     <nav className="fixed top-0 w-full bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 backdrop-blur-sm border-b border-emerald-200 shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
-        {/* Logo Section */}
-        <Link href="/" className="flex items-center space-x-3 group">
-          <Image
-            src="/assets/logo.png"
-            alt="DSA Bootcamp Logo"
-            width={56}
-            height={56}
-            priority
-            className="h-14 w-auto transform group-hover:scale-105 transition-transform duration-300"
-          />
-          {/* <span className="hidden sm:block font-bold text-lg text-emerald-700 group-hover:text-emerald-600 transition-colors">
-            DSA Bootcamp
-          </span> */}
-        </Link>
+        {/* Main Logo (Shifted to extreme left) */}
+        <div className="flex items-center">
+          <Link href="/home">
+            <Image
+              src="/assets/logo.png"
+              alt="DSA Bootcamp Logo"
+              width={56}
+              height={56}
+              priority
+              className="h-14 w-auto"
+            />
+          </Link>
+        </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-7">
+        <div className="hidden md:flex items-center space-x-7 ml-auto">
           {navLinks.map(({ href, icon: Icon, text, hoverColor }) => (
             <Link
               key={text}
@@ -73,48 +65,28 @@ const Navbar: React.FC = () => {
           ))}
         </div>
 
-        {/* Auth Section */}
-        <div className="flex items-center space-x-4">
-          {mounted && status === "authenticated" && (
-            <button
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className="bg-gradient-to-r from-red-500 to-rose-500 text-white px-6 py-2 rounded-lg hover:from-red-600 hover:to-rose-600 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
-            >
-              Logout
-            </button>
-          )}
-          {mounted && status === "unauthenticated" && (
-            <Link
-              href="/"
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-6 py-2 rounded-lg hover:from-emerald-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
-            >
-              Login
-            </Link>
-          )}
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              type="button"
-              className="p-3 rounded-lg bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
-              onClick={handleMobileMenuClick}
-              aria-label="Toggle menu"
-              aria-expanded={isMenuOpen}
-            >
-              <Menu className="h-5 w-5 text-white" />
-            </button>
-          </div>
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button
+            type="button"
+            className="p-4 rounded-lg bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-500 hover:to-teal-500 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+            onClick={handleMobileMenuClick}
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+          >
+            <Menu className="h-6 w-6 text-white" />
+          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden py-4 space-y-2 border-t border-emerald-500/20 bg-gradient-to-b from-emerald-400/95 via-teal-300/95 to-emerald-400/95 backdrop-blur-lg animate-slide-up rounded-b-2xl shadow-xl">
+        <div className="md:hidden py-6 space-y-3 border-t border-emerald-500/20 bg-gradient-to-b from-emerald-400/95 via-teal-300/95 to-emerald-400/95 backdrop-blur-lg animate-slide-up rounded-b-2xl shadow-xl">
           {navLinks.map(({ href, icon: Icon, text }) => (
             <Link
               key={text}
               href={href}
-              className="flex items-center space-x-3 mx-4 px-6 py-3 text-white hover:bg-white/20 hover:text-pink-200 rounded-xl transition-all duration-300 group"
+              className="flex items-center space-x-3 px-8 py-5 text-white hover:bg-white/20 hover:text-pink-200 rounded-xl transition-all duration-300 group"
               onClick={handleLinkClick}
             >
               <Icon className="w-5 h-5 text-pink-200 group-hover:rotate-12 transition-transform duration-500" />
